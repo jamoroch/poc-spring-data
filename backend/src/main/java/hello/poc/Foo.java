@@ -17,7 +17,8 @@ public class Foo {
     private String name;
 
     @ElementCollection
-    @CollectionTable(name = "foo_bar", joinColumns = @JoinColumn(name = "foo_id"))
+    @CollectionTable(name = "foo_bar",
+            joinColumns = @JoinColumn(name = "foo_id", unique = true, foreignKey = @ForeignKey(name = "foo_fk") ))
     @Column(name = "bar_id")
     private Set<UUID> bars = new HashSet<>();
 

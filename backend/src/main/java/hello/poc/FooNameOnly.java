@@ -1,5 +1,5 @@
 package hello.poc;
 
-public interface NameOnly {
+public interface FooNameOnly {
     String getName();
 }
