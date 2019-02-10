@@ -50,7 +50,7 @@ public class FooController {
     }
 
     @DeleteMapping("/foo/{name}")
-    public ResponseEntity deleteFoo(String name) {
+    public ResponseEntity deleteFoo(@PathVariable("name") String name) {
         service.getFooByName(name).ifPresent(f -> service.deleteFoo(f));
         return ResponseEntity.noContent().build();
 
