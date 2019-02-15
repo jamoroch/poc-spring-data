@@ -1,11 +1,16 @@
 package hello.poc;
 
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import javax.persistence.*;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "foo")
 public class Foo {
     @Id
@@ -15,6 +20,10 @@ public class Foo {
 
     @Column(name = "foo_name")
     private String name;
+
+    @CreatedDate
+    @Column(name = "created_date")
+    private Date createdDate;
 
     @ElementCollection
     @CollectionTable(name = "foo_bar",
@@ -44,5 +53,13 @@ public class Foo {
 
     public void setBars(Set<UUID> bars) {
         this.bars = bars;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
 }
