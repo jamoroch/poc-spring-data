@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.util.*;
 
 @Service
@@ -46,6 +47,10 @@ public class FooService {
         Foo foo = getFooByName(name).orElseThrow(RuntimeException::new);
         foo.getBars().add(barId);
         return saveFoo(foo);
+    }
+
+    public BigInteger countFooBar(){
+        return repository.countBars();
     }
 
     public String convertToString(Integer id, Message msg){

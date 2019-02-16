@@ -6,9 +6,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface FooRepository extends JpaRepository<Foo, Integer> {
+public interface FooRepository extends JpaRepository<Foo, UUID>, FooRepositoryCustom {
 
     Optional<Foo> findByName(String name);
 
     List<FooNameOnly> findBybarsIn(List<UUID> barId);
+
 }

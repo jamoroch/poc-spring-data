@@ -6,6 +6,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -62,6 +63,12 @@ public class FooController {
         service.getFooByName(name).ifPresent(f -> service.deleteFoo(f));
         return ResponseEntity.noContent().build();
 
+    }
+
+    @GetMapping("/foo/count")
+    public ResponseEntity countFoobar(){
+        BigInteger count = service.countFooBar();
+        return ResponseEntity.ok(count);
     }
 
     @PostMapping("/foo/{name}/encoded")
