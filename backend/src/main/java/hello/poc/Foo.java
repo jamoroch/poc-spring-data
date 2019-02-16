@@ -1,23 +1,28 @@
 package hello.poc;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
 @Entity
+@JsonInclude
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "foo")
-public class Foo {
+public class Foo implements Serializable {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "foo_id")
     private Integer fooId;
 
+    @Size(min=2)
     @Column(name = "foo_name")
     private String name;
 

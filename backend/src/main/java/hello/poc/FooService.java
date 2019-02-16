@@ -4,14 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.io.IOException;
+import java.util.*;
 
 @Service
 @Transactional
 public class FooService {
+
+    private static Map<Integer, String> storage = new HashMap<>();
 
     @Autowired
     FooRepository repository;
@@ -44,8 +44,29 @@ public class FooService {
 
     public Foo addBarToFoo(String name, UUID barId) {
         Foo foo = getFooByName(name).orElseThrow(RuntimeException::new);
-
         foo.getBars().add(barId);
         return saveFoo(foo);
     }
+
+    public String convertToString(Integer id, Message msg){
+        try {
+
+            String value = SerializationUtil.toString(msg);
+            storage.put(id, value);
+            return value;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Message convertFromString(Integer id){
+        try {
+            return SerializationUtil.fromString(storage.get(id), Message.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }
